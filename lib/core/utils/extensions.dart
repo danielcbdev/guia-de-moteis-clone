@@ -16,3 +16,7 @@ extension UnmaskMoney on String {
 extension StringToMoney on String {
   String get toMoney => 'R\$ ${double.parse(this) < 1 ? '0' : ''}${Utils.numberFormatCurrency(double.parse(this))}';
 }
+
+extension StrintToPercent on String {
+  String get toPercent => '${double.parse(this).toStringAsFixed(0)}%';
+}

@@ -94,33 +94,33 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
   }
 
   Widget _buildItems({required Suites suite}) {
-    return _buildCardWidget(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: (suite.categoriaItens ?? []).take(3).map((item) {
-                return Container(
-                  height: 40,
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppTheme.grayLightColor,
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: item.icone ?? '',
-                    fit: BoxFit.cover,
-                  ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(width: 10),
-            InkWell(
-              onTap: () => _showModalItems(suite: suite),
-              child: Row(
+    return InkWell(
+      onTap: () => _showModalItems(suite: suite),
+      child: _buildCardWidget(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: (suite.categoriaItens ?? []).take(3).map((item) {
+                  return Container(
+                    height: 40,
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: AppTheme.grayLightColor,
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: item.icone ?? '',
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(width: 10),
+              Row(
                 children: [
                   AutoSizeText(
                     "ver\ntodos",
@@ -135,8 +135,8 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -155,22 +155,71 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AutoSizeText(
-                        periodo.tempoFormatado ?? '',
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                        minFontSize: 18,
-                        maxLines: 1,
-                        overflow: TextOverflow.fade,
+                      Row(
+                        children: [
+                          AutoSizeText(
+                            periodo.tempoFormatado ?? '',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                            minFontSize: 18,
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                          ),
+                          if (periodo.desconto != null)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        color: AppTheme.greenColor,
+                                      ),
+                                    ),
+                                    child: AutoSizeText(
+                                      "${periodo.desconto!.desconto.toString().toPercent} off",
+                                      style: const TextStyle(
+                                        color: AppTheme.greenColor,
+                                        fontSize: 10,
+                                      ),
+                                      minFontSize: 10,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.fade,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
                       ),
                       if (periodo.valor != null)
-                        AutoSizeText(
-                          periodo.valor!.toMoney,
-                          style: const TextStyle(fontSize: 16),
-                          minFontSize: 18,
-                          maxLines: 1,
-                          overflow: TextOverflow.fade,
+                        Row(
+                          children: [
+                            if (periodo.desconto != null)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: AutoSizeText(
+                                  periodo.valor!.toMoney,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: AppTheme.grayDarkColor,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ),
+                            AutoSizeText(
+                              periodo.valorTotal!.toMoney,
+                              style: const TextStyle(fontSize: 16),
+                              minFontSize: 18,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ],
                         ),
                     ],
                   ),

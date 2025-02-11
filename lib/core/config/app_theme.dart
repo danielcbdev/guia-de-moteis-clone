@@ -5,6 +5,7 @@ class AppTheme {
   static const Color primaryColorDark = Color.fromARGB(255, 191, 51, 0);
   static const Color accentColor = Color(0xFFFFC107);
   static const Color backgroundColor = Color(0xFFF5F5F5);
+  static const Color greenColor = Color.fromARGB(255, 0, 200, 83);
   static const Color grayColor = Color.fromARGB(255, 202, 202, 202);
   static const Color grayDarkColor = Color.fromARGB(255, 150, 150, 150);
   static const Color grayLightColor = Color.fromARGB(255, 240, 240, 240);

@@ -172,7 +172,7 @@ class Periodos {
   final double? valor;
   final double? valorTotal;
   final bool? temCortesia;
-  final dynamic desconto;
+  final Desconto? desconto;
 
   Periodos({
     this.tempoFormatado,
@@ -189,7 +189,7 @@ class Periodos {
         valor = json['valor'] as double?,
         valorTotal = json['valorTotal'] as double?,
         temCortesia = json['temCortesia'] as bool?,
-        desconto = json['desconto'];
+        desconto = (json['desconto'] as Map<String, dynamic>?) != null ? Desconto.fromJson(json['desconto'] as Map<String, dynamic>) : null;
 
   Map<String, dynamic> toJson() => {
         'tempoFormatado': tempoFormatado,
@@ -199,4 +199,16 @@ class Periodos {
         'temCortesia': temCortesia,
         'desconto': desconto,
       };
+}
+
+class Desconto {
+  final double? desconto;
+
+  Desconto({
+    this.desconto,
+  });
+
+  Desconto.fromJson(Map<String, dynamic> json) : desconto = json['desconto'] as double?;
+
+  Map<String, dynamic> toJson() => {'desconto': desconto};
 }
