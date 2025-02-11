@@ -110,7 +110,7 @@ class _MotelsScreenState extends State<MotelsScreen> {
                                           borderRadius: BorderRadius.circular(99),
                                           child: CachedNetworkImage(
                                             imageUrl: motel.logo!,
-                                            width: MediaQuery.of(context).size.width * 0.15,
+                                            width: MediaQuery.of(context).size.width * 0.12,
                                           ),
                                         ),
                                         const SizedBox(width: 10),

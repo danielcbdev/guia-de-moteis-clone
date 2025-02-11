@@ -80,7 +80,7 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: (suite.categoriaItens ?? []).take(2).map((item) {
+              children: (suite.categoriaItens ?? []).take(3).map((item) {
                 return Container(
                   height: 40,
                   margin: const EdgeInsets.symmetric(horizontal: 3),

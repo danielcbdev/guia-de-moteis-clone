@@ -13,7 +13,7 @@ class MotelRemoteDataSource {
     try {
       final response = await client.get('/b/1IXK');
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
         return data;
       } else {
         throw const ServerFailure('Erro ao carregar os motéis');
