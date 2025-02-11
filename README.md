@@ -113,41 +113,41 @@
   <h2>Estrutura de Pastas</h2>
   <pre>
 lib/
-├── core/
+├── core/                              // Camada central do app (configurações globais, erros, temas e utilitários)
 │   ├── config/
-│   │   ├── custom\_http\_client.dart  // Classe para requisições HTTP com log
+│   │   ├── custom_http_client.dart    // Classe para requisições HTTP com log e tratamento de SSL
 │   ├── errors/
-│   │   └── failure.dart             // Tratamento de falhas e erros
+│   │   └── failure.dart               // Tratamento de falhas e erros globais
 │   ├── theme/
-│   │   └── app\_theme.dart           // Configurações de tema e cores
-│   └── utils/
-├── data/
+│   │   └── app_theme.dart             // Configurações de tema e cores do aplicativo
+│   └── utils/                          // Funções utilitárias e helpers
+├── data/                              // Camada de dados (fontes de dados, modelos e implementações de repositórios)
 │   ├── datasources/
-│   │   ├── motel\_remote\_data\_source.dart
+│   │   ├── motel_remote_data_source.dart // Fonte de dados remota para motéis (chamadas HTTP)
 │   ├── models/
-│   │   ├── moteis\_response.model.dart
+│   │   ├── moteis_response.model.dart  // Modelo de resposta da API para motéis
 │   └── repositories/
-│       ├── motel\_repository\_impl.dart
-├── domain/
-│   ├── entities/
+│       ├── motel_repository_impl.dart  // Implementação do repositório dos motéis
+├── domain/                            // Camada de domínio (regras de negócio e abstrações)
+│   ├── entities/                      // Definição das entidades principais do domínio
 │   ├── repositories/
-│   │   ├── motel\_repository.dart
+│   │   ├── motel_repository.dart       // Contrato da interface do repositório de motéis
 │   └── usecases/
-│       ├── get\_motels\_usecase.dart
-├── presentation/
-│   ├── auth/
-│   │   ├── blocs/
-│   │   │   ├── motel\_bloc.dart
-│   │   │   ├── motel\_event.dart
-│   │   │   └── motel\_state.dart
-│   │   ├── screens/
-│   │   │   └── motels\_screen.dart
-│   │   └── widgets/
-│   │       ├── product\_card.dart
-│   │       └── product\_filter.dart
-├── injection\_container.dart         // Injeção de dependências (GetIt)
-├── guia\_de\_motels.dart            // Load dos blocs e tema
-└── main.dart                        // Ponto de entrada do aplicativo
+│       ├── get_motels_usecase.dart     // Caso de uso para obter a lista de motéis
+├── presentation/                       // Camada de apresentação (UI, blocos e widgets)
+│   ├── auth/                           // Módulo de autenticação
+│   │   ├── blocs/                      // Blocs para gerenciamento de estado
+│   │   │   ├── motel_bloc.dart         // BLoC para motéis
+│   │   │   ├── motel_event.dart        // Eventos do BLoC de motéis
+│   │   │   └── motel_state.dart        // Estados do BLoC de motéis
+│   │   ├── screens/                    // Telas do app
+│   │   │   └── motels_screen.dart      // Tela principal da listagem de motéis
+│   │   └── widgets/                    // Componentes reutilizáveis da UI
+│   │       ├── product_card.dart       // Card de exibição de um motel
+│   │       └── product_filter.dart     // Widget de filtro de motéis
+├── injection_container.dart            // Configuração da injeção de dependências (GetIt)
+├── guia_de_motels.dart                 // Carregamento dos BLoCs e do tema principal
+└── main.dart                           // Ponto de entrada do aplicativo
 
 test/
 ├── core/
