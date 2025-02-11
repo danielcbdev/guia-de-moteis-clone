@@ -25,8 +25,13 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeResponse_0 extends _i1.SmartFake implements _i2.Response {
-  _FakeResponse_0(Object parent, Invocation parentInvocation)
+class _FakeClient_0 extends _i1.SmartFake implements _i2.Client {
+  _FakeClient_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeResponse_1 extends _i1.SmartFake implements _i2.Response {
+  _FakeResponse_1(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -50,6 +55,14 @@ class MockCustomHttpClient extends _i1.Mock implements _i3.CustomHttpClient {
           as String);
 
   @override
+  _i2.Client get httpClient =>
+      (super.noSuchMethod(
+            Invocation.getter(#httpClient),
+            returnValue: _FakeClient_0(this, Invocation.getter(#httpClient)),
+          )
+          as _i2.Client);
+
+  @override
   _i5.Future<_i2.Response> get(
     String? endpoint, {
     Map<String, String>? headers,
@@ -57,7 +70,7 @@ class MockCustomHttpClient extends _i1.Mock implements _i3.CustomHttpClient {
       (super.noSuchMethod(
             Invocation.method(#get, [endpoint], {#headers: headers}),
             returnValue: _i5.Future<_i2.Response>.value(
-              _FakeResponse_0(
+              _FakeResponse_1(
                 this,
                 Invocation.method(#get, [endpoint], {#headers: headers}),
               ),

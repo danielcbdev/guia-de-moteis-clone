@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 
 class CustomHttpClient {
   final String baseUrl;
+  final http.Client httpClient;
 
-  CustomHttpClient({required this.baseUrl});
+  CustomHttpClient({required this.baseUrl, http.Client? httpClient,})
+      : httpClient = httpClient ?? http.Client(); 
 
   Future<http.Response> get(
     String endpoint, {
@@ -16,7 +18,7 @@ class CustomHttpClient {
     try {
       final url = Uri.parse('$baseUrl$endpoint');
       _logRequest('GET', url, headers: headers);
-      final response = await http.get(
+      final response = await httpClient.get(
         url,
         headers: headers,
       );

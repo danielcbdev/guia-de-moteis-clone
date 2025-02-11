@@ -7,11 +7,3 @@ abstract class Failure {
 class ServerFailure extends Failure {
   const ServerFailure([super.message = 'Falha no servidor']);
 }
-
-class CacheFailure extends Failure {
-  const CacheFailure([super.message = 'Falha no cache']);
-}
-
-class NetworkFailure extends Failure {
-  const NetworkFailure([super.message = 'Falha de conexão']);
-}
