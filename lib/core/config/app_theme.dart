@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF0A74DA);
+  static const Color primaryColor = Color.fromARGB(255, 226, 61, 10);
+  static const Color primaryColorDark = Color.fromARGB(255, 191, 51, 0);
   static const Color accentColor = Color(0xFFFFC107);
   static const Color backgroundColor = Colors.white;
   static const Color scaffoldBackgroundColor = Color(0xFFF5F5F5);
@@ -19,7 +20,7 @@ class AppTheme {
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: const TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: 12,
           fontWeight: FontWeight.bold,
         ),
       ),
