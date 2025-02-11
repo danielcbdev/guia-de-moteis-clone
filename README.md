@@ -115,75 +115,38 @@
 lib/
 ├── core/
 │   ├── config/
-│   │   ├── custom_http_client.dart  // Classe para requisições HTTP com log
-│   │   └── app_router.dart          // Gerenciamento de rotas (se aplicável)
+│   │   ├── custom\_http\_client.dart  // Classe para requisições HTTP com log
 │   ├── errors/
 │   │   └── failure.dart             // Tratamento de falhas e erros
 │   ├── theme/
-│   │   └── app_theme.dart           // Configurações de tema e cores
+│   │   └── app\_theme.dart           // Configurações de tema e cores
 │   └── utils/
 ├── data/
 │   ├── datasources/
-│   │   ├── auth_remote_data_source.dart
-│   │   ├── user_remote_data_source.dart
-│   │   └── product_remote_data_source.dart
+│   │   ├── motel\_remote\_data\_source.dart
 │   ├── models/
-│   │   ├── user_model.dart
-│   │   └── product_model.dart
+│   │   ├── moteis\_response.model.dart
 │   └── repositories/
-│       ├── auth_repository_impl.dart
-│       ├── user_repository_impl.dart
-│       └── product_repository_impl.dart
+│       ├── motel\_repository\_impl.dart
 ├── domain/
 │   ├── entities/
-│   │   ├── user.dart
-│   │   └── product.dart
 │   ├── repositories/
-│   │   ├── auth_repository.dart
-│   │   ├── user_repository.dart
-│   │   └── product_repository.dart
+│   │   ├── motel\_repository.dart
 │   └── usecases/
-│       ├── login_usecase.dart
-│       ├── get_user_usecase.dart
-│       ├── get_products_usecase.dart
-│       ├── get_product_detail_usecase.dart
-│       └── search_products_usecase.dart
+│       ├── get\_motels\_usecase.dart
 ├── presentation/
 │   ├── auth/
 │   │   ├── blocs/
-│   │   │   ├── auth_bloc.dart
-│   │   │   ├── auth_event.dart
-│   │   │   └── auth_state.dart
+│   │   │   ├── motel\_bloc.dart
+│   │   │   ├── motel\_event.dart
+│   │   │   └── motel\_state.dart
 │   │   ├── screens/
-│   │   │   └── login_screen.dart
+│   │   │   └── motels\_screen.dart
 │   │   └── widgets/
-│   ├── home/
-│   │   └── screens/
-│   │       └── home_screen.dart
-│   ├── products/
-│   │   ├── blocs/
-│   │   │   ├── product_bloc.dart
-│   │   │   ├── product_event.dart
-│   │   │   └── product_state.dart
-│   │   ├── screens/
-│   │   │   ├── product_list_screen.dart
-│   │   │   ├── product_detail_screen.dart
-│   │   │   └── product_search_screen.dart
-│   │   └── widgets/
-│   │       ├── product_card.dart
-│   │       └── product_filter.dart
-│   └── profile/
-│       ├── blocs/
-│       │   ├── user_bloc.dart
-│       │   ├── user_event.dart
-│       │   └── user_state.dart
-│       ├── screens/
-│       │   ├── profile_screen.dart
-│       │   └── edit_profile_screen.dart
-│       └── widgets/
-│           ├── profile_card.dart
-│           └── profile_form.dart
-├── injection_container.dart         // Injeção de dependências (GetIt)
+│   │       ├── product\_card.dart
+│   │       └── product\_filter.dart
+├── injection\_container.dart         // Injeção de dependências (GetIt)
+├── guia\_de\_motels.dart            // Load dos blocs e tema
 └── main.dart                        // Ponto de entrada do aplicativo
 
 test/
