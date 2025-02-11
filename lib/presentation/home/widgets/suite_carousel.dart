@@ -15,7 +15,7 @@ class SuiteCarousel extends StatefulWidget {
 }
 
 class _SuiteCarouselState extends State<SuiteCarousel> {
-  final double _carouselHeight = 1700;
+  final double _carouselHeight = 900;
 
   @override
   Widget build(BuildContext context) {
