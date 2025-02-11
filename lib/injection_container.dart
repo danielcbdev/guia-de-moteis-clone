@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:guia_de_moteis_clone/core/config/custom_http_client.dart';
 import 'package:guia_de_moteis_clone/core/utils/constants.dart';
 import 'package:guia_de_moteis_clone/data/datasources/motel_remote_data_source.dart';
-import 'package:guia_de_moteis_clone/data/repositories/motel_repositlry_impl.dart';
+import 'package:guia_de_moteis_clone/data/repositories/motel_repository_impl.dart';
 import 'package:guia_de_moteis_clone/domain/repositories/motel_repository.dart';
 import 'package:guia_de_moteis_clone/domain/usecases/get_motels_usecase.dart';
 import 'package:guia_de_moteis_clone/presentation/home/blocs/motel_bloc.dart';
