@@ -59,11 +59,33 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-            child: AutoSizeText(
-              suite.nome ?? '',
-              style: const TextStyle(fontSize: 18),
-              minFontSize: 18,
-              textAlign: TextAlign.center,
+            child: Column(
+              children: [
+                AutoSizeText(
+                  suite.nome ?? '',
+                  style: const TextStyle(fontSize: 18),
+                  minFontSize: 18,
+                  textAlign: TextAlign.center,
+                ),
+                if ((suite.exibirQtdDisponiveis ?? false) && suite.qtd != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.warning,
+                        color: AppTheme.errorColor,
+                        size: 12,
+                      ),
+                      AutoSizeText(
+                        "só mais ${suite.qtd} pelo app",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppTheme.errorColor,
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
             ),
           ),
         ],
