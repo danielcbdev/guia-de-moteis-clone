@@ -33,77 +33,135 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
 
         return Column(
           children: [
-            _buildCardWidget(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl: suite.fotos?.first ?? '',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                    child: AutoSizeText(
-                      suite.nome ?? '',
-                      style: const TextStyle(fontSize: 18),
-                      minFontSize: 18,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _buildImageWidget(suite: suite),
             const SizedBox(height: 2),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: (suite.periodos ?? []).map((periodo) {
-                
-                return _buildCardWidget(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AutoSizeText(
-                                periodo.tempoFormatado ?? '',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                ),
-                                minFontSize: 18,
-                                maxLines: 1,
-                                overflow: TextOverflow.fade,
-                              ),
-                              if (periodo.valor != null)
-                                AutoSizeText(
-                                  periodo.valor!.toMoney,
-                                  style: const TextStyle(fontSize: 16),
-                                  minFontSize: 18,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.fade,
-                                ),
-                            ],
-                          ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                        ),
-                      ],
-                    ),
+            _buildItems(suite: suite),
+            const SizedBox(height: 2),
+            _buildPeriods(suite: suite),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildImageWidget({required Suites suite}) {
+    return _buildCardWidget(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: CachedNetworkImage(
+              imageUrl: suite.fotos?.first ?? '',
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            child: AutoSizeText(
+              suite.nome ?? '',
+              style: const TextStyle(fontSize: 18),
+              minFontSize: 18,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildItems({required Suites suite}) {
+    return _buildCardWidget(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: (suite.categoriaItens ?? []).take(2).map((item) {
+                return Container(
+                  height: 40,
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppTheme.grayLightColor,
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: item.icone ?? '',
+                    fit: BoxFit.cover,
                   ),
                 );
               }).toList(),
             ),
+            const SizedBox(width: 10),
+            InkWell(
+              onTap: () => _showModalItems(suite: suite),
+              child: Row(
+                children: [
+                  AutoSizeText(
+                    "ver\ntodos",
+                    textAlign: TextAlign.end,
+                    minFontSize: 10,
+                    maxFontSize: 10,
+                  ),
+                  const SizedBox(width: 5),
+                  const Icon(
+                    Icons.keyboard_arrow_down_sharp,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPeriods({required Suites suite}) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: (suite.periodos ?? []).map((periodo) {
+        return _buildCardWidget(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        periodo.tempoFormatado ?? '',
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                        minFontSize: 18,
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                      ),
+                      if (periodo.valor != null)
+                        AutoSizeText(
+                          periodo.valor!.toMoney,
+                          style: const TextStyle(fontSize: 16),
+                          minFontSize: 18,
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                        ),
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
         );
-      },
+      }).toList(),
     );
   }
 
@@ -124,6 +182,132 @@ class _SuiteCarouselState extends State<SuiteCarousel> {
         ],
       ),
       child: child,
+    );
+  }
+
+  void _showModalItems({required Suites suite}) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.white,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(Icons.keyboard_arrow_down_sharp),
+                ),
+              ),
+              const SizedBox(height: 40),
+              AutoSizeText(
+                suite.nome ?? '',
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: AppTheme.grayColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: AutoSizeText(
+                      "principais itens",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: AppTheme.grayColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Wrap(
+                children: (suite.categoriaItens ?? []).map((item) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: item.icone ?? '',
+                          fit: BoxFit.cover,
+                          height: 40,
+                        ),
+                        const SizedBox(width: 2),
+                        AutoSizeText(
+                          item.nome ?? '',
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: AppTheme.grayColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: AutoSizeText(
+                      "tem também",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: AppTheme.grayColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              AutoSizeText(
+                (suite.itens ?? []).map((item) => item.nome).join(', '),
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
