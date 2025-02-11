@@ -126,7 +126,7 @@ Instalação e Configuração
 
 1.  **Clone o repositório:**
     
-    git clone https://github.com/seu-usuario/guia-de-moteis-clone.git
+    git clone https://github.com/danielcbdev/guia-de-moteis-clone.git
     
 2.  **Navegue até o diretório do projeto:**
     
