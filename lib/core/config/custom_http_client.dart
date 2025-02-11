@@ -3,13 +3,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 class CustomHttpClient {
   final String baseUrl;
   final http.Client httpClient;
 
-  CustomHttpClient({required this.baseUrl, http.Client? httpClient,})
-      : httpClient = httpClient ?? http.Client(); 
+  CustomHttpClient({required this.baseUrl, http.Client? httpClient})
+      : httpClient = httpClient ?? _createHttpClient(); 
+
+  static http.Client _createHttpClient() {
+    HttpClient ioHttpClient = HttpClient();
+    ioHttpClient.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return IOClient(ioHttpClient);
+  }
 
   Future<http.Response> get(
     String endpoint, {
@@ -18,10 +25,7 @@ class CustomHttpClient {
     try {
       final url = Uri.parse('$baseUrl$endpoint');
       _logRequest('GET', url, headers: headers);
-      final response = await httpClient.get(
-        url,
-        headers: headers,
-      );
+      final response = await httpClient.get(url, headers: headers);
       _logResponse(response);
       return response;
     } catch (e) {
@@ -48,12 +52,5 @@ class CustomHttpClient {
     debugPrint('Status Code: ${response.statusCode}');
     debugPrint('Body: ${response.body}');
     debugPrint('--------------------');
-  }
-}
-
-class CustomHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
